@@ -6,6 +6,8 @@ const BrowserWindow = electron.BrowserWindow
 
 const path = require('path')
 const url = require('url')
+const nconf = require('nconf');
+nconf.argv().env().file(__dirname + '/config.json');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -20,10 +22,13 @@ function createWindow () {
     pathname: path.join(__dirname, 'index.html'),
     protocol: 'file:',
     slashes: true
-  }))
+  }));
 
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  if (nconf.get('debugging')) {
+    console.log('running with debug flag');
+    // launch with dev tools open for debugging
+    mainWindow.webContents.openDevTools();
+  }
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
