@@ -7,6 +7,7 @@ const BrowserWindow = electron.BrowserWindow
 const path = require('path')
 const url = require('url')
 const nconf = require('nconf');
+
 nconf.argv().env().file(__dirname + '/config.json');
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -19,7 +20,7 @@ function createWindow () {
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
+    pathname: path.join(__dirname, '/app/index.html'),
     protocol: 'file:',
     slashes: true
   }));
